@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-/*@import "../node_modules/@syncfusion/ej2-base/styles/material.css";*/
-/*@import "../node_modules/@syncfusion/ej2-react-buttons/styles/material.css";*/
-/*@import "../node_modules/@syncfusion/ej2-react-grids/styles/material.css";*/
-/*@import "../node_modules/@syncfusion/ej2-react-navigations/styles/material.css";*/
-/*@import "../node_modules/@syncfusion/ej2-react-splitbuttons/styles/material.css";*/
-/*@import "../node_modules/@syncfusion/ej2-react-dropdowns/styles/material.css";*/
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-react-buttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-react-grids/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-react-navigations/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-react-splitbuttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-react-dropdowns/styles/material.css";
 @import "tailwindcss";
 
 @theme {
@@ -283,7 +283,8 @@
     }
   }
   .nav-footer {
-    @apply flex items-center gap-2.5 pb-8;
+    /*@apply flex items-center gap-2.5 pb-8;*/
+    @apply absolute flex bottom-8 items-center gap-2.5 p-3;
     img {
       @apply size-10 rounded-full aspect-square;
     }
@@ -356,7 +357,7 @@
   }
 
   .admin-layout {
-    @apply flex flex-col lg:flex-row h-screen w-full;
+    @apply flex flex-col lg:flex-row  h-screen w-full;
     .children {
       @apply w-full h-full bg-light-200 pt-12 lg:pt-10;
     }
