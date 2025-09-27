@@ -1,12 +1,19 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useLoaderData, useNavigate } from "react-router-dom";
+import { logoutUser } from "~/appwrite/auth";
 import { sidebarItems } from "~/constants";
 import { cn } from "~/lib/utils";
 
-const NavItems = ({handleClick} : {handleClick?: () => void}) => {
-  const user = {
-    name: "Oluwasegun",
-    email: "shegezmore@gmail.com",
+const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
+  const user = useLoaderData() || {
+    name: "Guest",
+    email: "guest@example.com",
     imageUrl: "/assets/images/david.webp",
+  };
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logoutUser();
+    navigate("/sign-in");
   };
 
   return (
@@ -24,12 +31,13 @@ const NavItems = ({handleClick} : {handleClick?: () => void}) => {
                 <div
                   className={cn("group nav-item", {
                     "bg-primary-100 !text-white": isActive,
-                  })} onClick={handleClick}
+                  })}
+                  onClick={handleClick}
                 >
                   <img
                     src={icon}
                     alt={label}
-                    className={`group-hover:brightness-0 size-0 group-hover:invert ${isActive ? "brightness-0 invert" : "text-dark-200"}`}
+                    className={`group-hover:brightness-0 size-6 group-hover:invert ${isActive ? "brightness-0 invert" : "text-dark-200"}`}
                   />
                   {label}
                 </div>
@@ -40,8 +48,9 @@ const NavItems = ({handleClick} : {handleClick?: () => void}) => {
 
         <footer className="nav-footer">
           <img
-            src={user?.imageUrl || "/assets/images/david.webp"}
-            alt={user?.name || "David"}
+            src={user?.imageUrl}
+            alt={user?.name}
+            referrerPolicy="no-referrer"
           />
 
           <article>
@@ -49,12 +58,7 @@ const NavItems = ({handleClick} : {handleClick?: () => void}) => {
             <p>{user?.email}</p>
           </article>
 
-          <button
-            onClick={() => {
-              console.log("logout");
-            }}
-            className="cursor-pointer"
-          >
+          <button onClick={handleLogout} className="cursor-pointer">
             <img
               src="/assets/icons/logout.svg"
               alt="logout"

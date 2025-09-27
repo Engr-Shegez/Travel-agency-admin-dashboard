@@ -20,7 +20,7 @@ export const getUser = async () => {
 
     if (!user) return redirect("/sign-in");
 
-    const { documents } = await database.listDocuments(
+    const { documents, total } = await database.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
       [
@@ -28,6 +28,16 @@ export const getUser = async () => {
         Query.select(["name", "email", "imageUrl", "joinedAt", "accountId"]),
       ]
     );
+
+    // If we have an existing user document, return it. Otherwise create/store user data
+    // and return the newly created document so route loaders receive it.
+    if (total > 0 && Array.isArray(documents) && documents.length > 0) {
+      return documents[0];
+    }
+
+    // No existing user in DB - create one and return it (storeUserData handles errors/logging)
+    const created = await storeUserData();
+    return created;
   } catch (e) {
     console.log(e);
   }
@@ -111,8 +121,10 @@ export const storeUserData = async () => {
         joinedAt: new Date().toISOString(),
       }
     );
-
     if (!createdUser.$id) redirect("/sign-in");
+
+    // Return the created user document so callers (route loaders) receive the user data
+    return createdUser;
   } catch (error) {
     console.error("Error storing user data:", error);
   }

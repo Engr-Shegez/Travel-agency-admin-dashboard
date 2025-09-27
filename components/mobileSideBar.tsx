@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { SidebarComponent } from "@syncfusion/ej2-react-navigations";
 import { useRef } from "react";
 import NavItems from "./Navitems";
@@ -31,7 +31,7 @@ const MobileSideBar = () => {
       </header>
 
       <SidebarComponent ref={sidebarRef} width={270} enableGestures={false}>
-        <NavItems handleClick={toggleSidebar}/>
+        <NavItems handleClick={toggleSidebar} />
       </SidebarComponent>
     </div>
   );
