@@ -2,7 +2,11 @@ import { Outlet, redirect } from "react-router-dom";
 import { SidebarComponent } from "@syncfusion/ej2-react-navigations";
 import { MobileSideBar, NavItems } from "../../../components";
 import { account } from "~/appwrite/client";
-import { getExistingUser, storeUserData, getGooglePicture } from "~/appwrite/auth";
+import {
+  getExistingUser,
+  storeUserData,
+  getGooglePicture,
+} from "~/appwrite/auth";
 
 export async function clientLoader() {
   try {
@@ -25,7 +29,11 @@ export async function clientLoader() {
       if (!imageUrl) {
         // getGooglePicture will attempt to read the current session token if none is passed
         const providerPic = await getGooglePicture().catch(() => null);
-        imageUrl = providerPic || accountUser?.imageUrl || accountUser?.prefs?.photo || "/assets/images/david.webp";
+        imageUrl =
+          providerPic ||
+          accountUser?.imageUrl ||
+          accountUser?.prefs?.photo ||
+          "/assets/images/david.webp";
       }
 
       return { name, email, imageUrl };

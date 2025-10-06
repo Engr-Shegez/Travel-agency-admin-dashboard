@@ -9,10 +9,17 @@ export const clientLoader = async () => await getUser();
 
 const Dashboard = ({ loaderData }: Route.ComponentProps) => {
   const user = loaderData as User | null;
+  const displayName =
+    user?.name && user.name.trim().length > 0
+      ? user.name
+      : user?.email
+        ? user.email.split("@")[0]
+        : "Guest";
+
   return (
     <main className="dashboard wrapper">
       <Header
-        title={`Welcome ${user?.name ?? user?.email ?? "Guest"} 👋`}
+        title={`Welcome, ${displayName} 👋`}
         description="Monitor real-time activity, trends, and top destinations."
       />
 

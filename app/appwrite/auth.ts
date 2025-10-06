@@ -1,4 +1,4 @@
-import { OAuthProvider, Query, ID } from "appwrite";
+import { OAuthProvider, Query, ID, Databases } from "appwrite";
 import { account, appwriteConfig, database } from "./client";
 import { redirect } from "react-router";
 
@@ -20,26 +20,39 @@ export const getUser = async () => {
 
     if (!user) return redirect("/sign-in");
 
-    const { documents, total } = await database.listDocuments(
-      appwriteConfig.databaseId,
-      appwriteConfig.userCollectionId,
-      [
-        Query.equal("accountId", user.$id),
-        Query.select(["name", "email", "imageUrl", "joinedAt", "accountId"]),
-      ]
-    );
+    try {
+      const { documents, total } = await database.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.userCollectionId,
+        [
+          Query.equal("accountId", user.$id),
+          Query.select(["name", "email", "imageUrl", "joinedAt", "accountId"]),
+        ]
+      );
 
-    // If we have an existing user document, return it. Otherwise create/store user data
-    // and return the newly created document so route loaders receive it.
-    if (total > 0 && Array.isArray(documents) && documents.length > 0) {
-      return documents[0];
+      if (total > 0 && Array.isArray(documents) && documents.length > 0) {
+        return documents[0];
+      }
+    } catch (listError) {
+      console.error("Error listing user documents:", listError);
+      // Continue and try to fall back / create
     }
 
     // No existing user in DB - create one and return it (storeUserData handles errors/logging)
     const created = await storeUserData();
-    return created;
+    if (created) return created;
+
+    // As a last resort, return a lightweight shape from the account to avoid nulls in UI
+    return {
+      name: user.name || "",
+      email: user.email || "",
+      imageUrl: (user as any)?.prefs?.photo || null,
+      accountId: user.$id,
+    } as any;
   } catch (e) {
     console.log(e);
+    // If account call itself failed, ensure we navigate to sign-in rather than returning undefined
+    return redirect("/sign-in");
   }
 };
 
@@ -104,6 +117,12 @@ export const storeUserData = async () => {
     const user = await account.get();
     if (!user) throw new Error("User not found");
 
+    console.log("Creating user in database:", {
+      accountId: user.$id,
+      email: user.email,
+      name: user.name,
+    });
+
     const { providerAccessToken } = (await account.getSession("current")) || {};
     const profilePicture = providerAccessToken
       ? await getGooglePicture(providerAccessToken)
@@ -121,6 +140,9 @@ export const storeUserData = async () => {
         joinedAt: new Date().toISOString(),
       }
     );
+
+    console.log("User created successfully:", createdUser);
+
     if (!createdUser.$id) redirect("/sign-in");
 
     // Return the created user document so callers (route loaders) receive the user data
@@ -141,5 +163,33 @@ export const getExistingUser = async (id: string) => {
   } catch (error) {
     console.error("Error fetching user:", error);
     return null;
+  }
+};
+
+export const getAllUsers = async (limit: number, offset: number) => {
+  try {
+    console.log("Fetching users with config:", {
+      databaseId: appwriteConfig.databaseId,
+      userCollectionId: appwriteConfig.userCollectionId,
+      limit,
+      offset,
+    });
+
+    const { documents: users, total } = await database.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      [Query.limit(limit), Query.offset(offset)]
+    );
+
+    console.log("Users fetched:", { users, total });
+
+    if (total === 0) {
+      console.log("No users found in database");
+      return { users: [], total };
+    }
+    return { users, total };
+  } catch (e) {
+    console.error("Error Fetching users:", e);
+    return { users: [], total: 0 };
   }
 };
