@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "dev": "cross-env NODE_OPTIONS=--import ./instrument.server.mjs react-router dev",
-    "start": "cross-env NODE_OPTIONS=--import ./instrument.server.mjs react-router-serve ./build/server/index.js",
+    "dev": "cross-env \"NODE_OPTIONS=--import ./instrument.server.mjs\" npx react-router dev",
+    "start": "cross-env \"NODE_OPTIONS=--import ./instrument.server.mjs\" react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
@@ -35,11 +35,11 @@
   },
   "devDependencies": {
     "@react-router/dev": "^7.7.1",
-    "cross-env": "^7.0.3",
     "@tailwindcss/vite": "^4.1.4",
     "@types/node": "^20",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
+    "cross-env": "^7.0.3",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",
     "vite": "^6.3.3",

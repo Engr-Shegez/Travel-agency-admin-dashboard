@@ -13,6 +13,15 @@ const chipColors = [
   "!bg-success-50 !text-success-700",
 ];
 
+interface TripCardProps {
+  id: string;
+  name: string;
+  location: string | Record<string, any>;
+  imageUrl: string;
+  tags?: string[];
+  price?: string | number;
+}
+
 const TripCard = ({
   id,
   name,
@@ -23,6 +32,21 @@ const TripCard = ({
 }: TripCardProps) => {
   const path = useLocation();
 
+  // location can sometimes be an object (from parsed trip JSON) or a string.
+  // Coerce to a friendly string for display.
+  const locationText = (() => {
+    if (typeof location === "string") return location;
+    if (location && typeof location === "object") {
+      // prefer city if available in the object
+      if ("city" in location && (location as any).city)
+        return (location as any).city;
+      return JSON.stringify(location);
+    }
+    return "";
+  })();
+
+  const priceText = price ? String(price) : "";
+
   return (
     <Link
       to={
@@ -32,9 +56,9 @@ const TripCard = ({
       }
       className="trip-card"
     >
-      <img src={imageUrl} alt={name} />
+      <img src={imageUrl} alt={name} loading="lazy" />
 
-      <article>
+      <article className="p-4">
         <h2>{name}</h2>
         <figure>
           <img
@@ -42,25 +66,28 @@ const TripCard = ({
             alt="location"
             className="size-4"
           />
-          <figcaption>{location}</figcaption>
+          <figcaption>{locationText}</figcaption>
         </figure>
       </article>
 
-      <div className="mt-5 pl-[18px] pr-3.5 pb-5">
-        <ChipListComponent id="travel-chip">
-          <ChipsDirective>
-            {tags.map((tag, index) => (
-              <ChipDirective
-                key={index}
-                text={getFirstWord(tag)}
-                cssClass={cn(chipColors[index % chipColors.length])}
-              />
-            ))}
-          </ChipsDirective>
-        </ChipListComponent>
-      </div>
-
-      <article className="tripCard-pill">{price}</article>
+      {Array.isArray(tags) && tags.length > 0 && (
+        <div className="mt-5 pl-[18px] pr-3.5 pb-5">
+          <ChipListComponent id="travel-chip">
+            <ChipsDirective>
+              {tags.filter(Boolean).map((tag, index) => (
+                <ChipDirective
+                  key={index}
+                  text={getFirstWord(String(tag))}
+                  cssClass={cn(chipColors[index % chipColors.length])}
+                />
+              ))}
+            </ChipsDirective>
+          </ChipListComponent>
+        </div>
+      )}
+      {priceText ? (
+        <article className="tripCard-pill">{priceText}</article>
+      ) : null}
     </Link>
   );
 };
