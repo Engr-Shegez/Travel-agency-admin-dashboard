@@ -34,5 +34,6 @@ export default defineConfig((config) => {
     build: {
       sourcemap: false, // ✅ properly placed here
     },
+    base: "./",
   };
 });
