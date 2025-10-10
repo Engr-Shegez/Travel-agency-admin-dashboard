@@ -15,18 +15,12 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
+      "src": "^/api/(.*)$",
       "dest": "/api/$1"
     },
     {
-      "src": "/(.*)",
+      "src": "*.*",
       "dest": "/api/ssr"
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/"
     }
   ]
 }
