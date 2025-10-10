@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "@react-router/express": "^7.9.3",
     "@react-router/node": "^7.7.1",
     "@react-router/serve": "^7.7.1",
     "@sentry/profiling-node": "^10.15.0",
     "@sentry/react-router": "^10.15.0",
+    "@stripe/stripe-js": "^8.0.0",
     "@syncfusion/ej2-base": "^31.1.17",
     "@syncfusion/ej2-react-buttons": "^31.1.17",
     "@syncfusion/ej2-react-charts": "^31.1.18",
@@ -31,6 +33,7 @@
     "react-dom": "^19.1.0",
     "react-router": "^7.7.1",
     "react-router-dom": "^7.9.3",
+    "stripe": "^19.1.0",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
