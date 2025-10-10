@@ -12,7 +12,7 @@
     "@google/generative-ai": "^0.24.1",
     "@react-router/express": "^7.9.3",
     "@react-router/node": "^7.9.3",
-    "@react-router/serve": "^7.7.1",
+    "@react-router/serve": "^7.9.3",
     "@sentry/profiling-node": "^10.15.0",
     "@sentry/react-router": "^10.15.0",
     "@stripe/stripe-js": "^8.0.0",
