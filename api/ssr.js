@@ -7,8 +7,19 @@ const { Readable } = require("stream");
 
 module.exports = async function (req, res) {
   try {
-    // Dynamically import the built server entry (created during the build step)
-    const entry = await import("../build/server/index.js");
+    // Try to synchronously require the built server so Vercel's bundler
+    // includes it in the function bundle. Fall back to dynamic import
+    // (ESM) if require fails.
+    let entry;
+    try {
+      // Use require to ensure the file is bundled with the lambda
+      // when possible (CommonJS runtime).
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      entry = require("../build/server/index.js");
+    } catch (reqErr) {
+      // Fall back to dynamic import for ESM-built bundles.
+      entry = await import("../build/server/index.js");
+    }
 
     // The build's default export should be the SSR handler.
     const handler = entry && (entry.default || entry);
