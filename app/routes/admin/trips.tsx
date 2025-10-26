@@ -15,11 +15,15 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { allTrips, total } = await getAllTrips(limit, offset);
 
   return {
-    trips: allTrips.map(({ $id, tripDetails, imageUrls }) => ({
-      id: $id,
-      ...parseTripData(tripDetails),
-      imageUrls: imageUrls ?? [],
-    })),
+    trips: allTrips.map(({ $id, tripDetail, imageUrls }) => {
+      const parsedTrip = parseTripData(tripDetail);
+      console.log("Parsed trip:", parsedTrip);
+      return {
+        id: $id,
+        ...parsedTrip,
+        imageUrls: imageUrls ?? [],
+      };
+    }),
     total,
   };
 };
@@ -27,8 +31,18 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 const Trips = ({ loaderData }: Route.ComponentProps) => {
   const trips = loaderData.trips as Trip[] | [];
 
+  // Debug: Log first trip to see data structure
+  if (trips.length > 0) {
+    console.log("First trip data:", trips[0]);
+    console.log("Trip name:", trips[0].name);
+    console.log("Trip itinerary:", trips[0].itinerary);
+    console.log("Trip imageUrls:", trips[0].imageUrls);
+    console.log("Trip interests:", trips[0].interests);
+    console.log("Trip travelStyle:", trips[0].travelStyle);
+  }
+
   const [searchParams] = useSearchParams();
-  const initialPage = Number(searchParams.get("page" || "1"));
+  const initialPage = Number(searchParams.get("page") || "1");
 
   const [currentPage, setCurrentPage] = useState(initialPage);
 
@@ -42,7 +56,7 @@ const Trips = ({ loaderData }: Route.ComponentProps) => {
         title="Trips"
         description="View and edit AI-generated travel plans"
         ctaText="Create a trip"
-        ctaUrl="/trips/create"
+        ctaUrl="/admin/trips/create"
       />
 
       <section>
@@ -55,11 +69,19 @@ const Trips = ({ loaderData }: Route.ComponentProps) => {
             <TripCard
               id={trip.id}
               key={trip.id}
-              name={trip.name}
-              location={trip.itinerary?.[0].location ?? ""}
-              imageUrl={trip.imageUrls[0]}
-              tags={[trip.interests, trip.travelStyle]}
-              price={trip.estimatedPrice}
+              name={trip.name ?? "Untitled Trip"}
+              location={
+                trip.itinerary?.[0]?.location ??
+                trip.location?.city ??
+                "Unknown location"
+              }
+              imageUrl={trip.imageUrls?.[0] ?? "/assets/images/sample.jpeg"}
+              tags={
+                trip.interests && trip.travelStyle
+                  ? [trip.interests, trip.travelStyle]
+                  : []
+              }
+              price={trip.estimatedPrice ?? "$0"}
             />
           ))}
         </div>

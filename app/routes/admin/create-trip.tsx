@@ -104,12 +104,63 @@ const CreatedTrips = ({ loaderData }: Route.ComponentProps) => {
         }),
       });
 
-      const result: CreateTripResponse = await response.json();
+      // Clone the response to read it once
+      const clonedResponse = response.clone();
+      const contentType = response.headers.get("content-type");
 
-      if (result?.id) navigate(`/trips/${result.id}`);
-      else console.error("Failed to generate a trip");
+      // Check if response is OK
+      if (!response.ok) {
+        let errorMessage = "Failed to generate trip";
+
+        // Try to parse as JSON first
+        if (contentType && contentType.includes("application/json")) {
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } catch {
+            // If JSON parsing fails, try text
+            try {
+              const text = await clonedResponse.text();
+              errorMessage = text.substring(0, 200); // Limit error message length
+            } catch {
+              errorMessage = `${response.status} ${response.statusText}`;
+            }
+          }
+        } else {
+          // Not JSON, try to read as text
+          try {
+            const text = await response.text();
+            errorMessage = text.substring(0, 200);
+          } catch {
+            errorMessage = `${response.status} ${response.statusText}`;
+          }
+        }
+
+        setError(errorMessage);
+        setLoading(false);
+        return;
+      }
+
+      // Response is OK, parse as JSON
+      try {
+        const result: CreateTripResponse = await response.json();
+
+        if (result?.error) {
+          setError(result.error);
+        } else if (result?.id) {
+          navigate(`/admin/trips/${result.id}`);
+        } else {
+          setError("Failed to generate a trip");
+        }
+      } catch (parseError) {
+        console.error("Failed to parse response as JSON:", parseError);
+        setError("Received invalid response from server");
+      }
     } catch (e) {
       console.error("Error generating trip", e);
+      setError(
+        "An error occurred while generating the trip. Please try again."
+      );
     } finally {
       setLoading(false);
     }

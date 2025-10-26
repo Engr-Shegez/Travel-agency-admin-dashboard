@@ -52,21 +52,21 @@ const TripCard = ({
       to={
         path.pathname === "/" || path.pathname.startsWith("/travel")
           ? `/travel/${id}`
-          : `/trips/${id}`
+          : `/admin/trips/${id}`
       }
       className="trip-card"
     >
       <img src={imageUrl} alt={name} loading="lazy" />
 
       <article className="p-4">
-        <h2>{name}</h2>
+        <h2>{name || "Untitled Trip"}</h2>
         <figure>
           <img
             src="/assets/icons/location-mark.svg"
             alt="location"
             className="size-4"
           />
-          <figcaption>{locationText}</figcaption>
+          <figcaption>{locationText || "Unknown location"}</figcaption>
         </figure>
       </article>
 

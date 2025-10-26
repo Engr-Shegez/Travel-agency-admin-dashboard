@@ -4,7 +4,54 @@ import { data, type ActionFunctionArgs } from "react-router";
 import { appwriteConfig, database } from "~/appwrite/client";
 import { parseMarkdownToJson } from "~/lib/utils";
 
+// Add loader to handle GET requests (for debugging)
+export const loader = () => {
+  console.log("API route /api/create-trip was accessed via GET");
+  return data(
+    { message: "This endpoint only accepts POST requests" },
+    { status: 405 }
+  );
+};
+
 export const action = async ({ request }: ActionFunctionArgs) => {
+  console.log(
+    "API route /api/create-trip was called with method:",
+    request.method
+  );
+  // Server-side: use process.env
+  const geminiKey = process.env.GEMINI_API_KEY;
+  const unsplashKey = process.env.UNSPLASH_ACCESS_KEY;
+
+  if (!geminiKey) {
+    console.error(
+      "GEMINI_API_KEY not found. Available env keys:",
+      Object.keys(process.env).filter(
+        (k) => k.includes("GEMINI") || k.includes("API")
+      )
+    );
+    return data(
+      {
+        error:
+          "GEMINI_API_KEY is not set. Please check your .env.local file has GEMINI_API_KEY.",
+      },
+      { status: 500 }
+    );
+  }
+
+  if (!unsplashKey) {
+    console.error(
+      "UNSPLASH_ACCESS_KEY not found. Available env keys:",
+      Object.keys(process.env).filter((k) => k.includes("UNSPLASH"))
+    );
+    return data(
+      {
+        error:
+          "UNSPLASH_ACCESS_KEY is not set. Please check your .env.local file has UNSPLASH_ACCESS_KEY.",
+      },
+      { status: 500 }
+    );
+  }
+
   const {
     country,
     numberOfDays,
@@ -15,8 +62,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     userId,
   } = await request.json();
 
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-  const unsplashApiKey = process.env.UNSPLASH_ACCESS_KEY!;
+  const genAI = new GoogleGenerativeAI(geminiKey);
+  const unsplashApiKey = unsplashKey;
 
   try {
     const prompt = `Generate a ${numberOfDays}-day travel itinerary for ${country} based on the following user information:
@@ -66,11 +113,52 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     ]
     }`;
 
-    const textResult = await genAI
-      .getGenerativeModel({
-        model: "gemini-2.0-flash",
-      })
-      .generateContent([prompt]);
+    // Add retry logic for rate limiting
+    let textResult;
+    let retries = 3;
+    let lastError;
+
+    while (retries > 0) {
+      try {
+        textResult = await genAI
+          .getGenerativeModel({
+            model: "gemini-2.0-flash",
+          })
+          .generateContent([prompt]);
+        break; // Success, exit retry loop
+      } catch (error: any) {
+        lastError = error;
+        // Check if it's a rate limit error (429)
+        if (
+          error.message?.includes("429") ||
+          error.message?.includes("RATE_LIMIT")
+        ) {
+          retries--;
+          if (retries > 0) {
+            console.log(
+              `Rate limit hit, retrying... (${retries} retries left)`
+            );
+            // Wait before retrying (exponential backoff)
+            await new Promise((resolve) =>
+              setTimeout(resolve, 2000 * (4 - retries))
+            );
+            continue;
+          }
+          // No retries left, throw a user-friendly error
+          throw new Error(
+            "API rate limit exceeded. Please wait a minute and try again."
+          );
+        }
+        // Not a rate limit error, throw immediately
+        throw error;
+      }
+    }
+
+    if (!textResult) {
+      throw (
+        lastError || new Error("Failed to generate content from Gemini API")
+      );
+    }
 
     const trip = parseMarkdownToJson(textResult.response.text());
 
@@ -96,6 +184,26 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
     return data({ id: result.$id });
   } catch (e) {
-    console.error("Error generating travel plan: ', e");
+    console.error("Error generating travel plan: ", e);
+    let errorMessage = "An unknown error occurred";
+
+    if (e instanceof Error) {
+      // Provide user-friendly error messages
+      if (
+        e.message.includes("rate limit") ||
+        e.message.includes("429") ||
+        e.message.includes("RATE_LIMIT")
+      ) {
+        errorMessage =
+          "API rate limit exceeded. Please wait a minute and try again.";
+      } else if (e.message.includes("quota")) {
+        errorMessage =
+          "You've exceeded your API quota. Please wait a moment and try again.";
+      } else {
+        errorMessage = e.message;
+      }
+    }
+
+    return data({ error: errorMessage }, { status: 500 });
   }
 };
