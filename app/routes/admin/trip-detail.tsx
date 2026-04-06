@@ -73,7 +73,7 @@ const TripDetail = ({ loaderData }: Route.ComponentProps) => {
   } = tripData || {};
 
   // const allTrips = loaderData.allTrips as Trip[] | [];
-  const allTrips = (loaderData.allTrips || []) as Trip[];
+  const allTrips = (loaderData.allTrips || []) as unknown as Trip[];
 
   const pillItems = [
     {

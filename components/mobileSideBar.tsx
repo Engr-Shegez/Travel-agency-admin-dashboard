@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { SidebarComponent } from "@syncfusion/ej2-react-navigations";
 import { useRef } from "react";
-import NavItems from "./Navitems";
+import NavItems from "../app/Navitems";
 
 const MobileSideBar = () => {
   const sidebarRef = useRef<SidebarComponent>(null);

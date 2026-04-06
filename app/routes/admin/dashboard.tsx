@@ -12,8 +12,6 @@ import { parseTripData } from "~/lib/utils";
 import {
   Category,
   ChartComponent,
-  ColumnDirective,
-  ColumnsDirective,
   ColumnSeries,
   DataLabel,
   Inject,
@@ -23,7 +21,11 @@ import {
   Tooltip,
 } from "@syncfusion/ej2-react-charts";
 import { tripXAxis, tripyAxis, userXAxis, useryAxis } from "~/constants";
-import { GridComponent } from "@syncfusion/ej2-react-grids";
+import {
+  GridComponent,
+  ColumnsDirective,
+  ColumnDirective,
+} from "@syncfusion/ej2-react-grids";
 
 export const clientLoader = async () => {
   const [

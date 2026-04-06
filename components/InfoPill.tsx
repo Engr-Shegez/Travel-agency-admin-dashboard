@@ -1,3 +1,5 @@
+import React from "react";
+
 const InfoPill = ({ text, image }: InfoPillProps) => {
   const textStr = text ?? "";
   return (

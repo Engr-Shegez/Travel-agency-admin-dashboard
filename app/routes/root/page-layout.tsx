@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router";
+import React from "react";
+import { Outlet, useNavigate } from "react-router";
 import { logoutUser } from "~/appwrite/auth";
 
 const PageLayout = () => {
@@ -10,11 +11,14 @@ const PageLayout = () => {
   };
   return (
     <div>
-      {" "}
-      <button onClick={handleLogout} className="cursor-pointer">
-        <img src="/assets/icons/logout.svg" alt="logout" className="size-6" />
-      </button>
-      <button onClick={() => navigate("/dashboard")}>Dashboard</button>
+      <div className="flex items-center gap-4">
+        <button onClick={handleLogout} className="cursor-pointer">
+          <img src="/assets/icons/logout.svg" alt="logout" className="size-6" />
+        </button>
+        <button onClick={() => navigate("/admin/dashboard")}>Dashboard</button>
+      </div>
+
+      <Outlet />
     </div>
   );
 };

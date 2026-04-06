@@ -31,9 +31,5 @@ export default defineConfig((config) => {
     ssr: {
       noExternal: [/@syncfusion/],
     },
-    build: {
-      sourcemap: false, // ✅ properly placed here
-    },
-    base: "./",
   };
 });
