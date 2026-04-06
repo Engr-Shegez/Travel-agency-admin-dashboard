@@ -389,6 +389,273 @@
       @apply flex flex-col gap-[30px] w-full;
     }
   }
+
+  .home-shell {
+    @apply min-h-screen bg-light-200 text-dark-100;
+  }
+
+  .home-nav {
+    @apply sticky top-0 z-50 border-b border-white/50;
+    background: rgba(249, 251, 252, 0.78);
+    backdrop-filter: blur(18px);
+  }
+
+  .home-nav-inner {
+    @apply mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 lg:px-8;
+  }
+
+  .home-brand {
+    @apply flex items-center gap-3;
+
+    div {
+      @apply flex flex-col;
+    }
+
+    strong {
+      @apply text-base font-semibold tracking-[0.08em] uppercase text-dark-100;
+    }
+
+    span {
+      @apply text-xs text-gray-500;
+    }
+  }
+
+  .home-nav-links {
+    @apply hidden items-center gap-8 xl:flex;
+
+    a {
+      @apply text-sm font-medium text-gray-500 transition-colors duration-300 hover:text-dark-100;
+    }
+  }
+
+  .home-nav-actions {
+    @apply flex items-center gap-3;
+  }
+
+  .home-shell-link {
+    @apply hidden rounded-full border border-light-400 px-4 py-2 text-sm font-medium text-dark-100 transition-colors duration-300 hover:bg-white md:inline-flex;
+  }
+
+  .home-shell-cta {
+    @apply inline-flex items-center justify-center rounded-full bg-dark-100 px-5 py-2.5 text-sm font-medium text-white transition-transform duration-300 hover:-translate-y-0.5;
+  }
+
+  .home-main {
+    @apply pb-8;
+  }
+
+  .home-section {
+    @apply py-20 lg:py-28;
+  }
+
+  .home-section-soft {
+    background:
+      radial-gradient(circle at top left, rgba(37, 111, 241, 0.08), transparent 28%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(233, 243, 251, 0.45));
+  }
+
+  .home-section-dark {
+    background:
+      radial-gradient(circle at top, rgba(37, 111, 241, 0.12), transparent 25%),
+      linear-gradient(180deg, #f9fbfc 0%, #eef5fb 100%);
+  }
+
+  .home-eyebrow {
+    @apply inline-flex w-fit items-center rounded-full border border-primary-100/15 bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-primary-500;
+  }
+
+  .home-section-title {
+    @apply max-w-3xl text-3xl font-semibold leading-tight text-dark-100 md:text-5xl;
+  }
+
+  .home-hero {
+    @apply relative overflow-hidden border-b border-light-100;
+    background:
+      radial-gradient(circle at top left, rgba(37, 111, 241, 0.2), transparent 28%),
+      radial-gradient(circle at bottom right, rgba(193, 21, 116, 0.08), transparent 24%),
+      linear-gradient(180deg, #f9fbfc 0%, #eef5fb 100%);
+  }
+
+  .home-hero-grid {
+    @apply grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center;
+  }
+
+  .home-hero-title {
+    @apply max-w-4xl text-[44px] font-semibold leading-[1.02] tracking-[-0.04em] text-dark-100 sm:text-[56px] lg:text-[76px];
+  }
+
+  .home-search-panel {
+    @apply flex flex-col gap-5 rounded-[28px] border border-white/80 bg-white/90 p-5 shadow-200 backdrop-blur md:p-6;
+  }
+
+  .home-search-field {
+    @apply flex flex-col gap-2;
+
+    span {
+      @apply text-xs font-semibold uppercase tracking-[0.18em] text-gray-500;
+    }
+  }
+
+  .home-search-input {
+    @apply h-[58px] rounded-2xl border border-light-400 bg-light-200 px-4 text-base text-dark-100 outline-none transition-colors duration-300 placeholder:text-gray-500 focus:border-primary-100;
+  }
+
+  .home-primary-button {
+    @apply inline-flex items-center justify-center rounded-full bg-primary-100 px-6 py-3 text-sm font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5;
+  }
+
+  .home-ghost-button {
+    @apply inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors duration-300;
+  }
+
+  .home-metric-card {
+    @apply rounded-[24px] border border-white/80 bg-white/80 p-5 shadow-100 backdrop-blur;
+
+    h2 {
+      @apply text-3xl font-semibold text-dark-100;
+    }
+
+    p {
+      @apply mt-2 text-sm text-gray-500;
+    }
+  }
+
+  .home-hero-visual {
+    @apply relative min-h-[520px] overflow-hidden rounded-[32px] border border-white/70 shadow-200;
+  }
+
+  .home-card-image {
+    @apply h-full w-full object-cover transition duration-700;
+  }
+
+  .home-card-overlay {
+    @apply pointer-events-none absolute inset-0;
+    background: linear-gradient(180deg, rgba(16, 24, 40, 0.08) 0%, rgba(16, 24, 40, 0.66) 100%);
+  }
+
+  .home-floating-note {
+    @apply absolute z-10 rounded-[24px] border border-white/20 bg-dark-200/55 p-4 text-sm leading-6 text-white shadow-200 backdrop-blur-xl;
+    animation: homeFloat 6s ease-in-out infinite;
+
+    p {
+      @apply mt-3 max-w-[220px] text-white/80;
+    }
+  }
+
+  .home-glass-pill {
+    @apply inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white;
+  }
+
+  .home-proof-band {
+    @apply grid gap-4 rounded-[28px] border border-white/90 bg-white px-5 py-5 shadow-200 md:grid-cols-3 md:px-8;
+
+    p {
+      @apply text-sm leading-6 text-dark-400;
+    }
+  }
+
+  .home-destination-card {
+    @apply relative min-h-[360px] overflow-hidden rounded-[30px] p-6 shadow-200 transition duration-500 hover:-translate-y-1;
+
+    &:hover .home-card-image {
+      transform: scale(1.04);
+    }
+  }
+
+  .home-story-panel {
+    @apply flex flex-col justify-between rounded-[30px] border border-light-400 bg-white p-6 shadow-100 lg:p-8;
+  }
+
+  .home-style-card {
+    @apply rounded-[22px] border border-light-400 bg-light-200/70 p-5 transition-colors duration-300 hover:border-primary-100/25 hover:bg-primary-50/70;
+
+    h4 {
+      @apply text-lg font-semibold text-dark-100;
+    }
+
+    p {
+      @apply mt-2 text-sm leading-6 text-gray-500;
+    }
+  }
+
+  .home-experience-card {
+    @apply overflow-hidden rounded-[30px] border border-light-400 bg-white shadow-100 transition duration-500 hover:-translate-y-1 hover:shadow-200;
+  }
+
+  .home-editorial-block {
+    @apply rounded-[32px] border border-light-400 bg-white p-6 shadow-100 lg:p-8;
+  }
+
+  .home-kpi-tile {
+    @apply flex flex-col gap-2 rounded-[22px] bg-light-200 p-4;
+
+    strong {
+      @apply text-lg font-semibold text-dark-100;
+    }
+
+    span {
+      @apply text-sm leading-6 text-gray-500;
+    }
+  }
+
+  .home-narrative-card {
+    @apply rounded-[28px] border border-light-400 bg-white p-6 shadow-100;
+
+    h3 {
+      @apply text-2xl font-semibold leading-tight text-dark-100;
+    }
+
+    p {
+      @apply mt-3 text-base leading-7 text-gray-500;
+    }
+  }
+
+  .home-planner-preview {
+    @apply rounded-[32px] border border-white bg-white p-6 shadow-200 lg:p-8;
+  }
+
+  .home-timeline-card {
+    @apply rounded-[30px] border border-white bg-white p-6 shadow-100 transition duration-300 hover:-translate-y-1 hover:shadow-200 lg:p-8;
+
+    span {
+      @apply text-xs font-semibold uppercase tracking-[0.24em] text-primary-500;
+    }
+
+    h3 {
+      @apply mt-4 text-[28px] font-semibold leading-tight text-dark-100;
+    }
+
+    p {
+      @apply mt-4 text-base leading-7 text-gray-500;
+    }
+  }
+
+  .home-timeline-detail {
+    @apply mt-5 inline-flex rounded-full bg-light-200 px-4 py-2 text-sm text-dark-100;
+  }
+
+  .home-testimonial-card {
+    @apply rounded-[30px] border border-light-400 bg-white p-6 shadow-100 lg:p-8;
+  }
+
+  .home-editorial-banner {
+    @apply flex flex-col gap-6 rounded-[32px] border border-light-400 bg-white p-6 shadow-100 lg:flex-row lg:items-end lg:justify-between lg:p-8;
+  }
+
+  .home-final-cta {
+    @apply flex flex-col gap-8 overflow-hidden rounded-[36px] px-6 py-10 shadow-200 lg:flex-row lg:items-end lg:justify-between lg:px-10 lg:py-14;
+    background:
+      radial-gradient(circle at top left, rgba(255, 255, 255, 0.16), transparent 28%),
+      linear-gradient(120deg, #141627 0%, #175cd3 100%);
+  }
+
+  .home-footer {
+    @apply border-t border-light-100;
+  }
+
+  .home-footer-inner {
+    @apply mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-10 md:flex-row md:items-center md:justify-between lg:px-8;
+  }
 }
 
 @layer utilities {
@@ -475,6 +742,16 @@ body {
   font-family: "Figtree", sans-serif;
   background-color: #f9fbfc;
   scroll-behavior: smooth;
+}
+
+@keyframes homeFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 .glassmorphism {
