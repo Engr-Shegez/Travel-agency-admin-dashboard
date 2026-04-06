@@ -21,7 +21,7 @@
   --color-gray-700: #344054;
   --color-primary-50: #e9f3fb;
   --color-primary-100: #256ff1;
-  --color-primary-500: #175cd3;
+  --color-primary-500: #12b76a;
   --color-light-100: #ecf2ef;
   --color-light-200: #f9fbfc;
   --color-light-300: #f2f4f7;
@@ -395,7 +395,7 @@
   }
 
   .home-nav {
-    @apply sticky top-0 z-50 border-b border-white/50;
+    @apply sticky top-0 z-50 mx-auto max-w-7xl border-b rounded-full border border-black/6 bg-white/78 px-4 py-3 shadow-[0_18px_80px_rgba(0,0,0,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-black/35 dark:shadow-[0_8px_60px_rgba(0,0,0,0.28)];
     background: rgba(249, 251, 252, 0.78);
     backdrop-filter: blur(18px);
   }
@@ -450,8 +450,16 @@
 
   .home-section-soft {
     background:
-      radial-gradient(circle at top left, rgba(37, 111, 241, 0.08), transparent 28%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(233, 243, 251, 0.45));
+      radial-gradient(
+        circle at top left,
+        rgba(37, 111, 241, 0.08),
+        transparent 28%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.9),
+        rgba(233, 243, 251, 0.45)
+      );
   }
 
   .home-section-dark {
@@ -471,9 +479,20 @@
   .home-hero {
     @apply relative overflow-hidden border-b border-light-100;
     background:
-      radial-gradient(circle at top left, rgba(37, 111, 241, 0.2), transparent 28%),
-      radial-gradient(circle at bottom right, rgba(193, 21, 116, 0.08), transparent 24%),
-      linear-gradient(180deg, #f9fbfc 0%, #eef5fb 100%);
+      /* radial-gradient(
+        circle at top left,
+        rgba(193, 21, 116, 0.08),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at bottom right,
+        rgba(193, 21, 116, 0.08),
+        transparent 24%
+      ), */ linear-gradient(
+      180deg,
+      #f9fbfc 0%,
+      #eef5fb 100%
+    );
   }
 
   .home-hero-grid {
@@ -530,7 +549,11 @@
 
   .home-card-overlay {
     @apply pointer-events-none absolute inset-0;
-    background: linear-gradient(180deg, rgba(16, 24, 40, 0.08) 0%, rgba(16, 24, 40, 0.66) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(16, 24, 40, 0.08) 0%,
+      rgba(16, 24, 40, 0.66) 100%
+    );
   }
 
   .home-floating-note {
@@ -645,7 +668,11 @@
   .home-final-cta {
     @apply flex flex-col gap-8 overflow-hidden rounded-[36px] px-6 py-10 shadow-200 lg:flex-row lg:items-end lg:justify-between lg:px-10 lg:py-14;
     background:
-      radial-gradient(circle at top left, rgba(255, 255, 255, 0.16), transparent 28%),
+      radial-gradient(
+        circle at top left,
+        rgba(255, 255, 255, 0.16),
+        transparent 28%
+      ),
       linear-gradient(120deg, #141627 0%, #175cd3 100%);
   }
 
