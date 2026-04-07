@@ -469,7 +469,7 @@
   }
 
   .home-eyebrow {
-    @apply inline-flex w-fit items-center rounded-full border border-primary-100/15 bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-primary-500;
+    @apply inline-flex w-fit items-center rounded-full border border-primary-100/15 bg-primary-50 px-3 py-1 text-base font-semibold uppercase tracking-[0.24em] text-primary-500;
   }
 
   .home-section-title {
@@ -581,7 +581,7 @@
     @apply relative min-h-[360px] overflow-hidden rounded-[30px] p-6 shadow-200 transition duration-500 hover:-translate-y-1;
 
     &:hover .home-card-image {
-      transform: scale(1.04);
+      transform: scale(1.05);
     }
   }
 

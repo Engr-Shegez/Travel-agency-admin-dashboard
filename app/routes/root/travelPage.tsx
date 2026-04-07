@@ -115,6 +115,11 @@ const TravelPage = () => {
                   Luxury, adventure, solo, family. Same polish, different
                   rhythm.
                 </h3>
+                <img
+                  src="/assets/images/card-img-4.png"
+                  alt="Curated luxury travel preview"
+                  className="h-50%   object-cover rounded-3xl"
+                />
               </div>
 
               <div className="space-y-3">
