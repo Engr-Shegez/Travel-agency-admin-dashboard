@@ -540,7 +540,7 @@
   }
 
   .home-hero-visual {
-    @apply relative min-h-[520px] overflow-hidden rounded-[32px] border border-white/70 shadow-200;
+    @apply relative min-h-[420px] overflow-hidden rounded-[32px] border border-white/70 shadow-200;
   }
 
   .home-card-image {

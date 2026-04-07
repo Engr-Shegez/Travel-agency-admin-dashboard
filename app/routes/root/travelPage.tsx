@@ -22,13 +22,16 @@ const TravelPage = () => {
         <div className="wrapper home-hero-grid">
           <div className="space-y-8 py-12 lg:py-20">
             <div className="space-y-5">
-              <span className="home-eyebrow">Concierge travel planning, rethought</span>
+              <span className="home-eyebrow">
+                Concierge travel planning, rethought
+              </span>
               <h1 className="home-hero-title">
                 Trips that feel cinematic before you even leave home.
               </h1>
               <p className="max-w-2xl text-lg leading-8 text-dark-400 md:text-xl">
-                TripNest turns scattered inspiration into a polished route with the
-                calm, precision, and taste of a travel advisor built into the product.
+                TripNest turns scattered inspiration into a polished route with
+                the calm, precision, and taste of a travel advisor built into
+                the product.
               </p>
             </div>
 
@@ -58,9 +61,19 @@ const TravelPage = () => {
                 <p>Four-city route with island recovery days built in.</p>
               </div>
 
+              <img
+                src="/assets/images/sample3.jpg"
+                alt="Curated luxury travel preview"
+                className="h-full pt-8 w-full object-cover"
+              />
               <div className="home-floating-note bottom-6 right-5 max-w-[250px]">
-                <span className="home-glass-pill">This week's most requested</span>
-                <p>South Africa, Japan, and the Mediterranean for October departures.</p>
+                <span className="home-glass-pill">
+                  This week's most requested
+                </span>
+                <p>
+                  South Africa, Japan, and the Mediterranean for October
+                  departures.
+                </p>
               </div>
             </div>
           </div>
@@ -99,7 +112,8 @@ const TravelPage = () => {
               <div className="space-y-4">
                 <span className="home-eyebrow">Travel styles</span>
                 <h3 className="text-[28px] font-semibold leading-tight text-dark-100">
-                  Luxury, adventure, solo, family. Same polish, different rhythm.
+                  Luxury, adventure, solo, family. Same polish, different
+                  rhythm.
                 </h3>
               </div>
 
@@ -137,12 +151,13 @@ const TravelPage = () => {
           <div className="home-editorial-block">
             <span className="home-eyebrow">Why travelers choose TripNest</span>
             <h2 className="home-section-title">
-              Because a great trip is really a thousand small decisions made well.
+              Because a great trip is really a thousand small decisions made
+              well.
             </h2>
             <p className="text-lg leading-8 text-gray-500">
-              Most travel tools dump options on the user. This homepage frames TripNest
-              as the opposite: an opinionated planning partner that reduces friction
-              while preserving taste.
+              Most travel tools dump options on the user. This homepage frames
+              TripNest as the opposite: an opinionated planning partner that
+              reduces friction while preserving taste.
             </p>
 
             <div className="grid gap-4 pt-4 sm:grid-cols-3">
@@ -207,7 +222,9 @@ const TravelPage = () => {
                       <h4 className="text-base font-semibold text-dark-100">
                         {item.title}
                       </h4>
-                      <p className="text-sm leading-6 text-gray-500">{item.detail}</p>
+                      <p className="text-sm leading-6 text-gray-500">
+                        {item.detail}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -215,7 +232,9 @@ const TravelPage = () => {
 
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-sm text-gray-500">Estimated trip investment</p>
+                  <p className="text-sm text-gray-500">
+                    Estimated trip investment
+                  </p>
                   <strong className="text-2xl font-semibold text-dark-100">
                     $4,200 - $5,100
                   </strong>
@@ -256,14 +275,17 @@ const TravelPage = () => {
 
           <div className="home-editorial-banner">
             <div className="space-y-3">
-              <span className="home-eyebrow">What the best trips have in common</span>
+              <span className="home-eyebrow">
+                What the best trips have in common
+              </span>
               <h3 className="text-[30px] font-semibold leading-tight text-dark-100">
                 They don't feel packed. They feel inevitable.
               </h3>
             </div>
             <p className="max-w-2xl text-base leading-7 text-gray-500 md:text-lg">
-              Great planning removes the awkward edges, creates the right amount of
-              anticipation, and leaves just enough room for the trip to surprise you.
+              Great planning removes the awkward edges, creates the right amount
+              of anticipation, and leaves just enough room for the trip to
+              surprise you.
             </p>
           </div>
         </div>
@@ -277,20 +299,26 @@ const TravelPage = () => {
                 Ready when you are
               </span>
               <h2 className="max-w-3xl text-4xl font-semibold leading-tight text-white md:text-6xl">
-                Plan a trip that looks beautiful on screen and feels even better in
-                real life.
+                Plan a trip that looks beautiful on screen and feels even better
+                in real life.
               </h2>
               <p className="max-w-2xl text-base leading-7 text-white/75 md:text-lg">
-                Start with a destination, a feeling, or a rough travel window. TripNest
-                turns it into a route worth booking.
+                Start with a destination, a feeling, or a rough travel window.
+                TripNest turns it into a route worth booking.
               </p>
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Link to="/sign-in" className="home-primary-button bg-white !text-dark-100">
+              <Link
+                to="/sign-in"
+                className="home-primary-button bg-white !text-dark-100"
+              >
                 Start planning
               </Link>
-              <Link to="/dashboard" className="home-ghost-button border-white/20 text-white">
+              <Link
+                to="/dashboard"
+                className="home-ghost-button border-white/20 text-white"
+              >
                 Open dashboard
               </Link>
             </div>
