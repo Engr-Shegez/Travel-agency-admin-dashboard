@@ -116,7 +116,7 @@ const TravelPage = () => {
                   rhythm.
                 </h3>
                 <img
-                  src="/assets/images/card-img-4.png"
+                  src="/assets/images/auth-img.webp"
                   alt="Curated luxury travel preview"
                   className="h-50%   object-cover rounded-3xl"
                 />
