@@ -590,7 +590,7 @@
   }
 
   .home-style-card {
-    @apply rounded-[22px] border border-light-400 bg-light-200/70 p-5 transition-colors duration-300 hover:border-primary-100/25 hover:bg-primary-50/70;
+    @apply rounded-[22px] border border-light-400 bg-light-200/70 p-5 transition-colors duration-300 hover:border-primary-500/25 hover:bg-primary-500/25;
 
     h4 {
       @apply text-lg font-semibold text-dark-100;
