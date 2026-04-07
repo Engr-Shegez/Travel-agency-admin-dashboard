@@ -39,7 +39,7 @@ const HeroSearch = () => {
           onClick={() => navigate("/sign-in")}
           className="home-primary-button h-[58px] px-6"
         >
-          Plan my trip
+          Plan My Trip
         </button>
       </div>
 
@@ -50,7 +50,9 @@ const HeroSearch = () => {
         <span className="rounded-full bg-light-200 px-3 py-1.5 text-dark-100">
           Concierge pacing
         </span>
-        <span>Start with your dream route and we shape the smartest version of it.</span>
+        <span>
+          Start with your dream route and we shape the smartest version of it.
+        </span>
       </div>
     </div>
   );
